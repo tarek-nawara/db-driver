@@ -1,0 +1,10 @@
+<table name="employee">
+        <header>
+        <column name="firstName" type="string"/><column name="lastName" type="string"/>
+      </header>
+        <Records>
+          <Record>
+        <column key="firstName" value="tarek"/><column key="lastName" value="nawara"/>
+      </Record>
+        </Records>
+      </table>
