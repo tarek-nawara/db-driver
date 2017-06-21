@@ -14,7 +14,7 @@ object RelationParser {
       col <- (header \ "column")
       k <- col.attribute("name")
       v <- col.attribute("type")
-    } yield (k.text, v.text)).toMap
+    } yield (k.text, v.text)).toList
 
     def toRecord(n: NodeSeq) = (for {
       col <- (n \ "column")

@@ -7,11 +7,11 @@ import scala.collection.mutable.ListBuffer
 
 object RelationSerializer {
   def serialize(relation: Relation)(implicit config: DBConfiguration): Unit = {
-    def serializeRecord(record: Relation#Record): Elem =
+    def serializeRecord(header: List[(String, String)], record: Relation#Record): Elem =
       <Record>
-        { for ((key, value) <- record) yield <column key={ key } value={ value }/> }
+        { for ((key, _) <- header) yield <column key={ key } value={ record(key) }/> }
       </Record>
-    def serializeHeader(header: Map[String, String]): Elem =
+    def serializeHeader(header: List[(String, String)]): Elem =
       <header>
         { for ((key, value) <- header) yield <column name={ key } type={ value }/> }
       </header>
@@ -20,7 +20,7 @@ object RelationSerializer {
       <table name={ relation.name }>
         { serializeHeader(relation.header) }
         <Records>
-          { for (record <- relation.records) yield serializeRecord(record) }
+          { for (record <- relation.records) yield serializeRecord(relation.header, record) }
         </Records>
       </table>
     scala.xml.XML.save(config.path + s"\\${relation.name}.xml", xmlElem)

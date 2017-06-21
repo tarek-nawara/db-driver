@@ -8,7 +8,7 @@ import edu.db.driver.data.ddl.CreateDB
 
 object TestXML {
   def main(args: Array[String]): Unit = {
-    val relation = new Relation("employee", Map("firstName" -> "string", "lastName" -> "string"))
+    val relation = new Relation("employee", Map("firstName" -> "string", "lastName" -> "string").toList)
     implicit val config = new DBConfiguration()
     val a = new CreateDB("company")
     a.execute()
