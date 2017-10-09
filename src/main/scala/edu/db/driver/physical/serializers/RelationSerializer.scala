@@ -5,6 +5,10 @@ import edu.db.driver.physical.data.Relation
 import scala.xml.Elem
 import scala.collection.mutable.ListBuffer
 
+/** Logic for serializing Database tables to xml files
+  *
+  * @author Tarek Nawara
+  */
 object RelationSerializer {
   def serialize(relation: Relation)(implicit config: DBConfiguration): Unit = {
     def serializeRecord(header: List[(String, String)], record: Relation#Record): Elem =

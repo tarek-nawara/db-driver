@@ -5,6 +5,12 @@ import edu.db.driver.data.DBConfiguration
 import edu.db.driver.physical.serializers.RelationSerializer
 import edu.db.driver.physical.data.Relation
 
+/**
+  * Logic for implementing the `Insert` instruction.
+  *
+  * @param name table name
+  * @author Tarek Nawara
+  */
 class Insert(name: String) {
   def execute(values: List[String])(implicit config: DBConfiguration): Unit = {
     val relation = RelationParser.parse(name)
@@ -12,7 +18,7 @@ class Insert(name: String) {
     relation.records += record
     RelationSerializer.serialize(relation)
   }
-  
+
   def execute(record: Relation#Record)(implicit config: DBConfiguration): Unit = {
     val relation = RelationParser.parse(name)
     relation.records += record
