@@ -12,13 +12,13 @@ import edu.db.driver.physical.parsers.RelationParser
   * @param predicate all Records matching this predicate will be selected
   * @author Tarek Nawara
   */
-class Select(name: String, cols: Option[List[String]], predicate: Relation#Record => Boolean = _ => true) {
+class Select(name: String, cols: Option[List[String]] = Option.empty, predicate: Relation#Record => Boolean = _ => true) {
   def execute()(implicit config: DBConfiguration): Relation = {
     val relation = RelationParser.parse(name)
     val records = relation.records.filter(predicate)
-    val proj = cols.getOrElse(relation.header.map(_._1))
-    val projRecords = records.map(_.filterKeys(proj.contains))
-    val projHeader = relation.header.filter(x => proj.contains(x._1))
+    val projection = cols.getOrElse(relation.header.map(_._1))
+    val projRecords = records.map(_.filterKeys(projection.contains))
+    val projHeader = relation.header.filter(x => projection.contains(x._1))
     val resRelation = new Relation(name, projHeader)
     resRelation.records ++= projRecords
     resRelation
